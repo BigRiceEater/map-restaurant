@@ -29,7 +29,7 @@ const initMap = () => {
   });
   addMarker({ title: "Your Location", coords: defaultLocation });
 
-  // Attempt to find user's real location if possible
+  // Experimental: requires SSL connection
   //updateCurrentLocation();
 
   // initialise services
@@ -39,7 +39,8 @@ const initMap = () => {
 
 /**
  * Attempts to find the user's current location to update the map center
- * and update globals with the new information.
+ * and update globals with the new information. Only works from https SSL
+ * connections.
  */
 const updateCurrentLocation = () => {
   console.log("Update location");
@@ -134,26 +135,33 @@ const findRestaurants = () => {
     type: ["restaurant"]
   };
   places.nearbySearch(request, (result, status) => {
-    console.log("Places api callback");
-    console.log("status:", status);
     if (status !== "OK") {
       console.log("can't find places");
       return;
     }
     result.forEach(p => {
-      const restaurant = {
-        title: p.name,
-        price: p.price_level,
-        rating: p.rating,
-        isOpen: p.opening_hours ? p.opening_hours.open_now : false
-      };
-      globals.restaurants.push(restaurant);
+      addRestaurant(p);
       const param = {
         title: p.name,
         coords: p.geometry.location
       };
       addMarker(param);
+      console.log(p);
     });
     renderRestaurantsWithReact();
   });
+};
+
+const addRestaurant = data => {
+  const restaurant = {
+    title: data.name,
+    address: data.vicinity || "",
+    price: data.price_level,
+    rating: data.rating,
+    photo: data.photos
+      ? data.photos[0].getUrl()
+      : "https://hlfppt.org/wp-content/uploads/2017/04/placeholder.png",
+    isOpen: data.opening_hours ? data.opening_hours.open_now : false
+  };
+  globals.restaurants.push(restaurant);
 };

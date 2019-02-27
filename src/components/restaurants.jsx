@@ -1,30 +1,46 @@
 class Restaurants extends React.Component {
   getPriceRating = priceLevel => {
-    let stars = "";
-    for (let i = 0; i < priceLevel; i++) stars += "*";
+    let stars = "$";
+    for (let i = 0; i < priceLevel; i++) stars += "$";
     return stars;
   };
 
+  genShopOpening = isOpen => (
+    <p style={{ color: isOpen ? "green" : "red" }}>
+      {isOpen ? "Open" : "Closed"}
+    </p>
+  );
+
   render() {
     const { restaurants } = this.props;
-    return (
-      <div>
-        <ul>
-          {restaurants.map((shop, idx) => {
-            const { title, price, rating, isOpen } = shop;
-            return (
-              <li key={idx}>
-                <div className="restaurant-item">
-                  <h1>{title}</h1>
-                  <p>rating: {rating}</p>
-                  <p>price: {this.getPriceRating(price)}</p>
-                  <p>{isOpen ? "Open" : "Closed"}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
+    return restaurants.map((shop, idx) => {
+      const { title, price, address, rating, isOpen, photo } = shop;
+      return (
+        <div className="row" key={idx}>
+          <div className="card mx-2 my-2" style={{ width: "100%" }}>
+            <div className="card-header" style={{ padding: 0 }}>
+              <img
+                className="card-img-top"
+                style={{
+                  height: "150px",
+                  margin: 0,
+                  padding: 0,
+                  objectFit: "cover"
+                }}
+                src={photo}
+              />
+            </div>
+            <div className="card-body">
+              <h5 className="card-title">{title}</h5>
+              <h6 className="card-subtitle mb-2 text-muted">
+                Rating: {rating} | Price: {this.getPriceRating(price)}
+                {this.genShopOpening(isOpen)}
+              </h6>
+              <p>{address}</p>
+            </div>
+          </div>
+        </div>
+      );
+    });
   }
 }
