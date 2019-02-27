@@ -1,0 +1,23 @@
+{
+  "name": "restaurant-google-map",
+  "version": "1.0.0",
+  "description": "A map to show nearby locations of restaurants based on your current location.",
+  "main": "index.js",
+  "scripts": {
+    "build:js": "BABEL_ENV=development babel src -d dist",
+    "build:pug": "pug src/views --pretty --out dist",
+    "build": "npm run build:js && npm run build:pug",
+    "watch": "watch 'npm run build' src"
+  },
+  "author": "big.rice.eater",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "watch": "^1.0.2"
+  }
+}
