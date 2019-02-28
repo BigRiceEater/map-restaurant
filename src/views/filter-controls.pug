@@ -1,0 +1,10 @@
+form
+  .form-row.mx-2.align-items-center
+    .col-sm-4
+      label(for="sortByControl") Sort by:
+    .col-sm-8
+      select.custom-select#sortByControl(onchange="sortByChanged()")
+        option(disabled selected) -- select criteria --
+        option(value="0") Affordable
+        option(value="1") Best Rated
+        option(value="2") Open Now

@@ -15,13 +15,16 @@ html
             margin: 20px;
         }
   body
-    #alertregion
     .container
       .row
-        #map.col-md
-        #restaurant-region.col-md
-          //ul.restaurant-list
-          
+        .col-md
+          .row
+            #map.col
+          .row
+            .col
+              include filter-controls
+        .col-md#restaurant-region.mt-2
+
     script(src="components/restaurants.js")
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5lQdrWME0-dDJRlNdPqD3rfdoRN_TEks&libraries=places&callback=initMap" async defer)
     script(src="scripts/index.js")
