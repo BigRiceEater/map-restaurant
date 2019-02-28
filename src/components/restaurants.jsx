@@ -1,5 +1,7 @@
 class Restaurants extends React.Component {
   getPriceRating = priceLevel => {
+    if (priceLevel === undefined) return "N/A";
+
     let stars = "$";
     for (let i = 0; i < priceLevel; i++) stars += "$";
     return stars;

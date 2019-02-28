@@ -4,7 +4,7 @@ form
       label(for="sortByControl") Sort by:
     .col-sm-8
       select.custom-select#sortByControl(onchange="sortByChanged()")
-        option(disabled selected) -- select criteria --
-        option(value="0") Affordable
-        option(value="1") Best Rated
-        option(value="2") Open Now
+        option(value="0" selected) All
+        option(value="1") Affordable
+        option(value="2") Best Rated
+        option(value="3") Open Now
